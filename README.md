@@ -149,4 +149,4 @@ ragbuild/
 
 4.综合评分 通过加权计算 语义相似度、关键信息覆盖率、完整性、实体匹配度 来衡量 answer 的整体质量，公式为 overall_score = 0.3 * summary_similarity + 0.3 * info_coverage + 0.2 * completeness + 0.2 * entity_relevance，确保 answer 在多个维度上都具备高相关性。
 
-如果你在使用过程中遇到问题，欢迎提交 Issue 进行反馈！🚀
+最后，如果你在使用过程中遇到问题，欢迎提交 Issue 进行反馈！🚀
