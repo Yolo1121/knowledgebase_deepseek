@@ -140,8 +140,13 @@ ragbuild/
 
 <img width="673" alt="image" src="https://github.com/user-attachments/assets/6185c0ef-e8d3-4f3b-bf3d-6c6b3a06c88d" />
 
-<small>1.关键信息覆盖率 衡量 answer 是否包含 query 的关键信息，计算方法是提取 query 和 answer 的关键词及其权重，并计算 query 关键词在 answer 中的匹配权重比例，即 info_coverage = matched_weight / total_weight。（例如，对于查询 "苹果公司的创始人是谁？"，关键词 ["苹果公司", "创始人"] 总权重为 2.7，如果 answer 为 "苹果公司由乔布斯创立。", 则匹配 "苹果公司" 和 "创立"，覆盖率为 2.7 / 2.7 = 1.0（100%）。）<small>
+### 采用的评估策略
+1.关键信息覆盖率 衡量 answer 是否包含 query 的关键信息，计算方法是提取 query 和 answer 的关键词及其权重，并计算 query 关键词在 answer 中的匹配权重比例，即 info_coverage = matched_weight / total_weight。（例如，对于查询 "苹果公司的创始人是谁？"，关键词 ["苹果公司", "创始人"] 总权重为 2.7，如果 answer 为 "苹果公司由乔布斯创立。", 则匹配 "苹果公司" 和 "创立"，覆盖率为 2.7 / 2.7 = 1.0（100%）。
+
 2.实体匹配度 衡量 answer 是否包含 query 相关的命名实体（如人名、地名、组织等），计算方法是使用 NER（命名实体识别）提取 query 和 answer 的实体，并计算 query 中实体在 answer 中的匹配比例。（例如，对于 query 实体 {"ORG": "苹果公司", "PER": "乔布斯"}，若 answer 包含 "苹果公司" 和 "乔布斯"，则 entity_relevance = 2/2 = 1.0（100%）。）
+
 3.完整性（Completeness） 衡量 answer 是否足够详细，避免过于简短。计算方式是将 answer 按 。！？ 分句，统计句子数量 n，然后归一化评分：completeness = min(1.0, n / 3)。如果 answer 少于 3 句，则按比例评分。(例如 1 句 = 0.33，2 句 = 0.67；如果 answer 至少 3 句，则评分固定为 1.0，确保回答完整。例如 "苹果公司由乔布斯创立。" 只有 1 句，得分 0.33，而 "苹果公司由乔布斯创立。他在 1976 年与沃兹尼亚克共同创建公司。苹果最初生产个人电脑。"  有 3 句，得分 1.0。)
+
 4.综合评分 通过加权计算 语义相似度、关键信息覆盖率、完整性、实体匹配度 来衡量 answer 的整体质量，公式为 overall_score = 0.3 * summary_similarity + 0.3 * info_coverage + 0.2 * completeness + 0.2 * entity_relevance，确保 answer 在多个维度上都具备高相关性。
+
 如果你在使用过程中遇到问题，欢迎提交 Issue 进行反馈！🚀
