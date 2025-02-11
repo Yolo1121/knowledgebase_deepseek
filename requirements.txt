@@ -1,0 +1,14 @@
+opencv-python
+fitz
+frontend
+pdf2docx
+pypdf2
+mammoth
+markdownify
+langchain_community
+langchain_chroma
+langchain
+pymilvus
+rich
+paddleocr
+paddlepaddle
