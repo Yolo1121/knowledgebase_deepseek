@@ -131,10 +131,6 @@ ragbuild/
     ├── tableImg2txt.py
     └── volumes/
 ```
-拟定的十个问题：
-
-<img width="483" alt="image" src="https://github.com/user-attachments/assets/168b73f4-b97b-4479-8d0c-12d4ccc9ae94" />
-
 
 最终使用结果展示：
 
