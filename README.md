@@ -8,7 +8,7 @@
 
 - **PDF 解析**：使用 `tools_helper/PDF_Layout_Analysis.py` 提取 PDF 文本内容。
 - **向量存储**：采用 **Milvus** 向量数据库存储解析后的文本数据。
-- **AI 检索**：使用pdf_search_vectortrans1.py 基于 `deepseek` (`r1-8b` 轻量模型) 进行文本检索及 AI 总结问答。
+- **文本检索**：使用pdf_search_vectortrans1.py 基于词向量相似度检索及 `deepseek`进行 AI 总结问答。
 - **主要文件**：本项目涉及以下三个核心文件：
 	1.	PDF_Layout_Analysis.py - 负责 PDF 文本解析和数据存储
 	2.	pdf_search_vectortrans1.py - 负责向量检索及 AI 生成回答
