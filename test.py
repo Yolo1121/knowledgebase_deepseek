@@ -24,11 +24,15 @@ def check_collection_details(collection_name="sjznNew"):
         print(f"- 记录数: {collection.num_entities}")
         print(f"- Schema: {collection.schema}")
         
-        # 尝试直接查询所有数据
+        # 获取实际的字段名
+        field_names = [field.name for field in collection.schema.fields]
+        print(f"\n可用字段: {field_names}")
+        
+        # 使用实际存在的字段进行查询
         results = collection.query(
             expr="",
-            output_fields=["id", "text"],  # 修改为实际的字段名
-            limit=5  # 限制返回前5条记录
+            output_fields=field_names,  # 使用所有可用字段
+            limit=5
         )
         
         print("\n前5条记录:")
@@ -46,46 +50,25 @@ def check_collection_details(collection_name="sjznNew"):
         print(f"- 索引类型: {index_info.get('index_type', 'unknown')}")
         print(f"- 度量类型: {index_info.get('metric_type', 'unknown')}")
         
-        # 获取并显示页码分布
-        if collection.num_entities > 0:
-            print("\n页码分布:")
-            results = collection.query(
-                expr="",
-                output_fields=["page_num", "source"],
-                limit=collection.num_entities  # 获取所有数据
-            )
-            
-            # 统计页码分布
-            page_distribution = {}
-            for result in results:
-                page_num = result['page_num']
-                if page_num not in page_distribution:
-                    page_distribution[page_num] = 0
-                page_distribution[page_num] += 1
-            
-            # 按页码排序显示
-            for page_num in sorted(page_distribution.keys()):
-                print(f"- 第{page_num}页: {page_distribution[page_num]}条记录")
-            
-            # 显示示例数据（保持原有的显示逻辑）
-            print("\n数据示例:")
-            sample_results = collection.query(
-                expr="",
-                output_fields=["pk", "page_num", "source", "vector"],
-                limit=2
-            )
-            
-            for i, result in enumerate(sample_results, 1):
-                print(f"\n记录 {i}:")
-                for key, value in result.items():
-                    if key == "vector":
-                        vector = np.array(value)
-                        print(f"- 向量信息:")
-                        print(f"  • 维度: {vector.shape}")
-                        print(f"  • 前5个值: {vector[:5]}")
-                        print(f"  • L2范数: {np.linalg.norm(vector)}")
-                    else:
-                        print(f"- {key}: {value}")
+        # 显示示例数据
+        print("\n数据示例:")
+        sample_results = collection.query(
+            expr="",
+            output_fields=field_names,  # 使用之前获取的实际字段名
+            limit=2
+        )
+        
+        for i, result in enumerate(sample_results, 1):
+            print(f"\n记录 {i}:")
+            for key, value in result.items():
+                if key == "vector":
+                    vector = np.array(value)
+                    print(f"- 向量信息:")
+                    print(f"  • 维度: {vector.shape}")
+                    print(f"  • 前5个值: {vector[:5]}")
+                    print(f"  • L2范数: {np.linalg.norm(vector)}")
+                else:
+                    print(f"- {key}: {value}")
         
     except Exception as e:
         print(f"检查集合时出错: {str(e)}")
