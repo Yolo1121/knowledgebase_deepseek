@@ -35,12 +35,11 @@ docker pull milvusdb/milvus:latest
 ```
 	2.	运行 Milvus 容器：
 ```
-docker run -d --name milvus \
+docker run -d --name milvus-standalone \
   -p 19530:19530 \
   -p 9091:9091 \
-  -p 8080:8080 \
   -v /path/to/milvus/data:/var/lib/milvus \
-  milvusdb/milvus:latest
+  milvusdb/milvus:v2.5
 
 注意：请替换 /path/to/milvus/data 为你希望存储 Milvus 数据的本地目录路径。
 ```
