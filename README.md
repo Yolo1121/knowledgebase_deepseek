@@ -63,6 +63,11 @@ python tools_helper/PDF_Layout_Analysis.py
 ```
 python test.py
 ```
+存入后的数据格式：
+
+<img width="824" alt="image" src="https://github.com/user-attachments/assets/5fe596fb-e8c8-45ad-8c32-468894f47c68" />
+
+
 🔖 3 下载 DeepSeek 轻量模型
 
 本项目使用 deepseek r1-8b 轻量模型进行 AI 检索，请按照以下步骤下载模型：
